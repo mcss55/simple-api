@@ -18,6 +18,7 @@ public class UserController {
 
     UserService userService;
 
+
     @GetMapping
     public ResponseEntity<?> getAllUser() {return userService.getAllUser();}
 
@@ -31,5 +32,10 @@ public class UserController {
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long id) {userService.deleteUser(id);}
+
+    @GetMapping("/secured")
+    public ResponseEntity<String> secured(){
+        return ResponseEntity.ok("You are welcome! :(");
+    }
 
 }

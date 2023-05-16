@@ -10,7 +10,6 @@ import com.mcss.simpleapi.Service.Abstracts.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.mapstruct.factory.Mappers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -27,13 +26,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<List<ResponseUser>> getAllUser() {
         return ResponseEntity.ok(userRepository.findAll().stream()
-                .map(simpleMapper::userToResponse).toList());
+                .map(user -> ResponseUser.builder()
+                        .name(user.getName())
+                        .surname(user.getSurname())
+                        .age(user.getAge())
+                        .build()).toList());
     }
 
     @Override
     public ResponseEntity<ResponseUser> getUser(Long id) {
-        ResponseUser user = simpleMapper.userToResponse(userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with id: " + id)));
-        return ResponseEntity.ok(user);
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+        return ResponseEntity.ok(ResponseUser.builder()
+                .name(user.getName())
+                .surname(user.getSurname())
+                .age(user.getAge())
+                .build());
     }
 
     @Override

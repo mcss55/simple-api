@@ -14,13 +14,6 @@ spring:
     username: postgres
     password: 1234
     url: jdbc:postgresql://localhost:5432/simple_db
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: 529234142600-brjdk3ufisbvgf7h64ouauiipd9oo1uu.apps.googleusercontent.com
-            client-secret: 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
 logging:
   level:
     org:
